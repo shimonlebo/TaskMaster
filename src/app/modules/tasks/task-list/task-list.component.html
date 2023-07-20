@@ -1,1 +1,5 @@
-<p>task-list works!</p>
+<ul>
+  <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
+    <li>{{ task.title }}</li>
+  </ng-container>
+</ul>
