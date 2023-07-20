@@ -8,15 +8,26 @@ import { TASKS } from '../mock-tasks';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = TASKS;
+  tasks: Task[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  // TrackBy function to improve performance
   trackByFn(index: number, task: Task): number {
     return task.id;
+  }
+
+  // When 'add task' button is clicked, add a new task to the list
+  addTask(title: string): void {
+    const task: Task = {
+      id: this.tasks.length + 1,
+      title,
+      completed: false
+    };
+    this.tasks.push(task);
   }
 
 }
