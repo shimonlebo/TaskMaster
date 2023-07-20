@@ -20,7 +20,6 @@ export class TaskListComponent implements OnInit {
     return task.id;
   }
 
-  // When 'add task' button is clicked, add a new task to the list
   addTask(title: string): void {
     const task: Task = {
       id: this.tasks.length + 1,
@@ -28,6 +27,10 @@ export class TaskListComponent implements OnInit {
       completed: false
     };
     this.tasks.push(task);
+  }
+
+  deleteTask(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
   }
 
 }

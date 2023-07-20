@@ -2,6 +2,9 @@
 <button (click)="addTask(newTaskTitle.value)">Add Task</button>
 <ul>
   <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
-    <li>{{ task.title }}</li>
+    <li class="is-flex">
+      {{ task.title }}
+      <button (click)="deleteTask(task.id)" class="ml-3">X</button>
+    </li>
   </ng-container>
 </ul>
