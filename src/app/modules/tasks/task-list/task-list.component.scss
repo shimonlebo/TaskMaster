@@ -1,0 +1,4 @@
+input[type="checkbox"]:checked + .task-title {
+  text-decoration: line-through;
+  color: #ccc;
+}

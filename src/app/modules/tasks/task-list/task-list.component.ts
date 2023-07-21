@@ -27,10 +27,23 @@ export class TaskListComponent implements OnInit {
       completed: false
     };
     this.tasks.push(task);
+    console.log('task added', task);
   }
 
   deleteTask(id: number): void {
     this.tasks = this.tasks.filter(task => task.id !== id);
+    console.log('task deleted', id);
   }
+
+  toggleCompleted(id: number): void {
+    this.tasks = this.tasks.map(task => {
+      if (task.id === id) {
+        task.completed = !task.completed;
+      }
+      return task;
+    });
+    console.log('task completed', id);
+  }
+
 
 }

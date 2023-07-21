@@ -3,7 +3,8 @@
 <ul>
   <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
     <li class="is-flex">
-      {{ task.title }}
+      <input type="checkbox" [checked]="task.completed" (change)="toggleCompleted(task.id)" />
+      <div class="task-title">{{ task.title }}</div>
       <button (click)="deleteTask(task.id)" class="ml-3">X</button>
     </li>
   </ng-container>
