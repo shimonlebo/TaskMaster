@@ -1,10 +1,18 @@
 <app-task-form (taskCreated)="addTask($event)"></app-task-form>
-<ul>
+<ul class="my-3">
   <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
-    <li class="is-flex">
-      <input type="checkbox" [checked]="task.completed" (change)="toggleCompleted(task.id)" />
-      <div class="task-title">{{ task.title }}</div>
-      <button (click)="deleteTask(task.id)" class="ml-3">X</button>
+    <li class="box">
+      <div class="columns is-vcentered is-mobile">
+        <div class="column is-narrow">
+          <input type="checkbox" class="checkbox" [checked]="task.completed" (change)="toggleCompleted(task.id)" />
+        </div>
+        <div class="column task-title" [class.completed]="task.completed">
+          {{ task.title }}
+        </div>
+        <div class="column is-narrow">
+          <button (click)="deleteTask(task.id)" class="button is-danger">X</button>
+        </div>
+      </div>
     </li>
   </ng-container>
 </ul>
