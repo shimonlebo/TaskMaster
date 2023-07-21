@@ -2,3 +2,35 @@
   text-decoration: line-through;
   color: #ccc;
 }
+
+.line {
+  width: 100%;
+  border-width: 0 0 1px 0;
+  border-color: #000;
+  background-color: transparent;
+
+  &:focus, &:active, &:focus-visible {
+    outline: 0;
+  }
+}
+
+.checkbox {
+  vertical-align: middle;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.box {
+  background: lightyellow;
+}
+
+.field {
+  position: relative;
+}
+
+.index {
+  position: absolute;
+  left: -14px;
+}

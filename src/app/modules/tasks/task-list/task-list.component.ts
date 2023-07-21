@@ -9,6 +9,7 @@ import { TASKS } from '../mock-tasks';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
+  completedTasks: number = 0;
 
   constructor() { }
 
@@ -39,6 +40,11 @@ export class TaskListComponent implements OnInit {
     this.tasks = this.tasks.map(task => {
       if (task.id === id) {
         task.completed = !task.completed;
+        if (task.completed === true) {
+          this.completedTasks += 1;
+        } else {
+          this.completedTasks -= 1;
+        }
       }
       return task;
     });
