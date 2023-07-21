@@ -1,13 +1,7 @@
-<div class="is-flex space-between">
-  <h1>Task List</h1>
-  <button (click)="showTaskForm = true">Create task</button>
-</div>
-
 <section class="box mt-3">  
-  <app-task-form *ngIf="showTaskForm" (taskCreated)="addTask($event)"></app-task-form>
+  <app-task-form (taskCreated)="addTask($event)"></app-task-form>
   <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
-    <div class="field has-addons">
-      <div class="index">{{ i + 1 }}</div>
+    <div class="field has-addons mt-3">
       <div class="control mr-1">
         <input type="checkbox" class="checkbox" [checked]="task.completed" (change)="toggleCompleted(task.id)" />
       </div>
@@ -20,5 +14,5 @@
       </div>
     </div>
   </ng-container>
-  <small>Tasks completed: {{ completedTasks }}</small>
+  <small *ngIf="tasks.length">Tasks completed: {{ completedTasks }}</small>
 </section>

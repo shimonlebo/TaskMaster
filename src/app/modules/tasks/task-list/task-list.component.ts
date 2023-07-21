@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoTask as Task } from '../task.model';
-import { TASKS } from '../mock-tasks';
 
 @Component({
   selector: 'app-task-list',
@@ -8,9 +7,8 @@ import { TASKS } from '../mock-tasks';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = []; // TASKS
+  tasks: Task[] = [];
   completedTasks: number = 0;
-  showTaskForm: boolean = false;
 
   constructor() { }
 
@@ -29,7 +27,6 @@ export class TaskListComponent implements OnInit {
       completed: false
     };
     this.tasks.push(task);
-    this.showTaskForm = false;
     console.log('task added', task);
   }
 

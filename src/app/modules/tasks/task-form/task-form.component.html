@@ -1,11 +1,6 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-  <div class="field has-addons">
-    <div class="control w-100">
-      <input type="text" class="line" formControlName="title">
-    </div>
-    <div class="control ml-1">
-      <button type="submit">+</button>
-    </div>
+  <div class="control w-100">
+    <input type="text" class="line" formControlName="title" placeholder="Write your task">
   </div>
 </form>
 
