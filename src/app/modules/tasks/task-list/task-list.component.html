@@ -1,5 +1,4 @@
-<textarea #newTaskTitle name="newTask"></textarea>
-<button (click)="addTask(newTaskTitle.value)">Add Task</button>
+<app-task-form (taskCreated)="addTask($event)"></app-task-form>
 <ul>
   <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
     <li class="is-flex">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent implements OnInit {
+  @Output() taskCreated = new EventEmitter<string>();
   taskForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -17,17 +18,14 @@ export class TaskFormComponent implements OnInit {
 
   initializeForm() {
     this.taskForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      completed: false
+      title: ['', [Validators.required, Validators.maxLength(100)]]
     });
   }
 
-  get title() {
-    return this.taskForm.get('title');
-  }
-
   onSubmit() {
-    console.log(this.taskForm.value);
+    console.log('Task Submitted');
+    this.taskCreated.emit(this.taskForm.value.title);
+    this.taskForm.reset();
   }
 
 }
