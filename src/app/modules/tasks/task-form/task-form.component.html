@@ -1,12 +1,10 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
   <div class="field has-addons">
-    <div class="control">
-      <input type="text" class="input" formControlName="title">
+    <div class="control w-100">
+      <input type="text" class="line" formControlName="title">
     </div>
-    <div class="control">
-      <button type="submit" class="button is-info" [disabled]="taskForm.invalid">
-        Add Task
-      </button>
+    <div class="control ml-1">
+      <button type="submit">+</button>
     </div>
   </div>
 </form>

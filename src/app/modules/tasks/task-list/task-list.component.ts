@@ -8,8 +8,9 @@ import { TASKS } from '../mock-tasks';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
+  tasks: Task[] = []; // TASKS
   completedTasks: number = 0;
+  showTaskForm: boolean = false;
 
   constructor() { }
 
@@ -28,7 +29,13 @@ export class TaskListComponent implements OnInit {
       completed: false
     };
     this.tasks.push(task);
+    this.showTaskForm = false;
     console.log('task added', task);
+  }
+
+  editTask(index: number, title: string) {
+    this.tasks[index].title = title;
+    console.log('task edited', this.tasks[index]);
   }
 
   deleteTask(id: number): void {
@@ -42,14 +49,13 @@ export class TaskListComponent implements OnInit {
         task.completed = !task.completed;
         if (task.completed === true) {
           this.completedTasks += 1;
+          console.log('task completed', id);
         } else {
           this.completedTasks -= 1;
+          console.log('task uncompleted', id);
         }
       }
       return task;
-    });
-    console.log('task completed', id);
+    });    
   }
-
-
 }
