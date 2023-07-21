@@ -23,9 +23,13 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Task Submitted');
-    this.taskCreated.emit(this.taskForm.value.title);
-    this.taskForm.reset();
+    if (this.taskForm.valid) {
+      console.log('Task Submitted');
+      this.taskCreated.emit(this.taskForm.value.title);
+      this.taskForm.reset();
+    } else {
+      console.log('Invalid Task');
+    }
   }
 
 }
