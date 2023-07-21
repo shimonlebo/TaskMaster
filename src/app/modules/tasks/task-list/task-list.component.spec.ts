@@ -35,6 +35,13 @@ describe('TaskListComponent', () => {
     expect(component.tasks.length).toBe(0);
   });
 
+  // Test editTask
+  it('should edit a task', () => {
+    component.addTask('test');
+    component.editTask(0, 'test123');
+    expect(component.tasks[0].title).toBe('test123');
+  });
+
   // Test toggleCompleted
   it('should toggle completed state', () => {
     component.addTask('test');
