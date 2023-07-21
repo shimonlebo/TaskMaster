@@ -1,1 +1,7 @@
-<p>task-form works!</p>
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="title">
+  <button type="submit" [disabled]="taskForm.invalid">
+    Add Task
+  </button>
+</form>
+
