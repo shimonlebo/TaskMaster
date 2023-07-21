@@ -20,4 +20,33 @@ describe('TaskListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // Test addTask
+  it('should add a task', () => {
+    component.addTask('test');
+    expect(component.tasks.length).toBe(1);
+  });
+
+
+  // Test deleteTask
+  it('should delete a task', () => {
+    component.addTask('test');
+    component.deleteTask(1);
+    expect(component.tasks.length).toBe(0);
+  });
+
+  // Test toggleCompleted
+  it('should toggle completed state', () => {
+    component.addTask('test');
+    component.toggleCompleted(1);
+    expect(component.tasks[0].completed).toBeTruthy();
+  });
+
+  // Test trackByFn
+  it('should return the task id', () => {
+    const task = {id: 1, title: 'test', completed: false};
+    const result = component.trackByFn(0, task);
+    expect(result).toBe(1);
+  });
+
 });
