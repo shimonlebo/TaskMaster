@@ -1,6 +1,13 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
   <div class="control w-100">
-    <input type="text" class="line" formControlName="title" placeholder="Write your task">
+    <input 
+      type="text" 
+      class="line" 
+      formControlName="title" 
+      placeholder="Write your task" 
+      data-cy="title"
+      maxlength="100"
+      required>
   </div>
 </form>
 
