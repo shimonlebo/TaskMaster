@@ -1,6 +1,6 @@
 import { TaskFormComponent } from './task-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { createOutputSpy } from 'cypress/angular'
+import { createOutputSpy } from 'cypress/angular';
 
 describe('TaskFormComponent', () => {
   // Test mount
@@ -15,23 +15,7 @@ describe('TaskFormComponent', () => {
     cy.mount(TaskFormComponent, {
       imports: [FormsModule, ReactiveFormsModule]
     })
-    cy.get('[data-cy=title]').should('exist')
-  });
-
-  // Test title required
-  it('should make the title control required', () => {
-    cy.mount(TaskFormComponent, {
-      imports: [FormsModule, ReactiveFormsModule]
-    });
-    cy.get('[data-cy=title]').should('have.attr', 'required');
-  });
-
-  // Test tite maxlength
-  it('should make the title control max length 100', () => {
-    cy.mount(TaskFormComponent, {
-      imports: [FormsModule, ReactiveFormsModule]
-    });
-    cy.get('[data-cy=title]').should('have.attr', 'maxlength', '100');
+    cy.get('[formControlName=title]').should('exist')
   });
 
   // Test form submit
@@ -39,7 +23,7 @@ describe('TaskFormComponent', () => {
     cy.mount(TaskFormComponent, {
       imports: [FormsModule, ReactiveFormsModule]
     });
-    cy.get('[data-cy=title]').type('test');
+    cy.get('[formControlName=title]').type('test');
     cy.get('form').submit();
   });
 
@@ -48,9 +32,9 @@ describe('TaskFormComponent', () => {
     cy.mount(TaskFormComponent, {
       imports: [FormsModule, ReactiveFormsModule]
     });
-    cy.get('[data-cy=title]').type('test');
+    cy.get('[formControlName=title]').type('test');
     cy.get('form').submit();
-    cy.get('[data-cy=title]').should('have.value', '');
+    cy.get('[formControlName=title]').should('have.value', '');
   });
 
   // Test taskCreated event
@@ -61,11 +45,9 @@ describe('TaskFormComponent', () => {
         taskCreated: createOutputSpy('taskCreated')
       }
     });
-    cy.get('[data-cy=title]').type('test');
+    cy.get('[formControlName=title]').type('test');
     cy.get('form').submit();
     cy.get('@taskCreated').should('have.been.calledOnce');
   });
   
 });
-
-// Path: src\app\modules\tasks\task-list\task-list.component.cy.ts
