@@ -1,17 +1,17 @@
-<section class="box mt-3">  
+<section class="box mt-3" data-cy="task-list">  
   <app-task-form (taskCreated)="addTask($event)"></app-task-form>
   <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
-    <div class="field has-addons mt-3" data-cy="task">
+    <div class="field has-addons mt-3">
       <div class="control mr-1">
-        <input type="checkbox" class="checkbox" [checked]="task.completed" (change)="toggleCompleted(task.id)" />
+        <input type="checkbox" class="checkbox" [checked]="task.completed" (change)="toggleCompleted(task.id)" data-cy="checkbox" />
       </div>
       <div class="control w-100">
         <input type="text" class="line" #input [class.completed]="task.completed" 
         [value]="task.title" 
-        (input)="editTask(i, input.value)">
+        (input)="editTask(i, input.value)" data-cy="task">
       </div>
       <div class="control ml-1">
-        <button (click)="deleteTask(task.id)">X</button>
+        <button (click)="deleteTask(task.id)" data-cy="delete">X</button>
       </div>
     </div>
   </ng-container>

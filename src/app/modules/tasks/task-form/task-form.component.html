@@ -1,6 +1,7 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
   <div class="control w-100">
     <input 
+      data-cy="task-input"
       type="text" 
       class="line" 
       formControlName="title" 
