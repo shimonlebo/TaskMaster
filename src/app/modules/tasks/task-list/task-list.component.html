@@ -1,20 +1,24 @@
 <section class="box mt-3">  
   <app-task-form (taskCreated)="addTask($event)"></app-task-form>
-  <ng-container *ngFor="let task of tasks; index as i; trackBy: trackByFn">
+  <ng-container *ngFor="let task of tasks$ | async; trackBy: trackByFn">
     <div class="field has-addons mt-3" data-cy="task-field">
       <div class="control mr-1">
         <input type="checkbox" class="checkbox" [checked]="task.completed" 
           (change)="toggleCompleted(task.id)" data-cy="checkbox" />
       </div>
       <div class="control w-100">
-        <input type="text" class="line" #input [class.completed]="task.completed" 
+        <input type="text" class="line" #input 
+          [class.completed]="task.completed" 
+          [readonly]="task.completed"
           [value]="task.title" 
-          (input)="editTask(i, input.value)" data-cy="task-value">
+          (input)="editTask(task.id, input.value)" data-cy="task-value">
       </div>
       <div class="control ml-1">
         <button (click)="deleteTask(task.id)" data-cy="delete">X</button>
       </div>
     </div>
   </ng-container>
-  <small *ngIf="tasks.length">Tasks completed: {{ completedTasks }}</small>
+  <small *ngIf="(tasks$ | async)?.length">
+    Tasks completed: {{ (completedTasks$ | async) ?? 0 }}
+  </small>
 </section>
