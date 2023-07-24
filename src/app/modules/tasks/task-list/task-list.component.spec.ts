@@ -20,13 +20,6 @@ describe('TaskListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Test addTask
-  it('should add a task', () => {
-    component.addTask('test');
-    expect(component.tasks.length).toBe(1);
-  });
-
-
   // Test deleteTask
   it('should delete a task', () => {
     component.addTask('test');

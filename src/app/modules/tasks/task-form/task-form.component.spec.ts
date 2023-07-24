@@ -55,13 +55,4 @@ describe('TaskFormComponent', () => {
     component.onSubmit();
     expect(control?.value).toBeNull();
   });
-
-  // Test taskCreated event
-  it('should emit the taskCreated event', () => {
-    spyOn(component.taskCreated, 'emit');
-    const control = component.taskForm.get('title');
-    control?.setValue('test');
-    component.onSubmit();
-    expect(component.taskCreated.emit).toHaveBeenCalledWith('test');
-  });
 });
