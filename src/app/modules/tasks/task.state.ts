@@ -1,5 +1,6 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { TodoTask as Task } from './task.model';
+import { Injectable } from '@angular/core';
 
 // define the shape of your state
 export interface TaskStateModel {
@@ -34,6 +35,7 @@ export class ToggleCompleted {
     tasks: []
   }
 })
+@Injectable()
 export class TaskState {
   // Add a task to the state
   @Action(AddTask)
