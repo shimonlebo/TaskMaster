@@ -17,21 +17,26 @@ export class TaskFormComponent implements OnInit {
     this.initializeForm();
   }
 
-  onSubmit() {
-    if (this.taskForm.valid) {
-      const id = this.store.selectSnapshot(state => state.tasks.tasks.length) + 1; 
-      const title = this.taskForm.value.title;    
-      this.store.dispatch(new AddTask({ id, title, completed: false }));
-      this.taskForm.reset();
-    } else {
+  onSubmit(): void {
+    if (this.taskForm.invalid) {
       console.log('Invalid Task');
+      return;      
     }
+
+    this.addTask();
+    this.taskForm.reset();
   }
   
-  private initializeForm() {
+  private initializeForm(): void {
     this.taskForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.maxLength(100)])
     });
+  }
+
+  private addTask(): void {
+    const id = this.store.selectSnapshot(state => state.tasks.tasks.length) + 1; 
+    const title = this.taskForm.value.title;    
+    this.store.dispatch(new AddTask({ id, title, completed: false }));
   }
 
 }
