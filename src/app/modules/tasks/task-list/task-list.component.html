@@ -1,5 +1,5 @@
 <section class="box mt-3">  
-  <app-task-form (taskCreated)="addTask($event)"></app-task-form>
+  <app-task-form></app-task-form>
   <ng-container *ngFor="let task of tasks$ | async; trackBy: trackByFn">
     <div class="field has-addons mt-3" data-cy="task-field">
       <div class="control mr-1">
