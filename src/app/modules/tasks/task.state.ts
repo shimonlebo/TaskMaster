@@ -35,42 +35,56 @@ export class ToggleCompleted {
   }
 })
 export class TaskState {
+  // Add a task to the state
   @Action(AddTask)
   add(ctx: StateContext<TaskStateModel>, action: AddTask) {
     const state = ctx.getState();
+    // update the state with the new task
     ctx.patchState({
       tasks: [...state.tasks, action.payload]
     });
   }
 
+  // Edit a task in the state
   @Action(EditTask)
   edit(ctx: StateContext<TaskStateModel>, action: EditTask) {
     const state = ctx.getState();
+    // update the state with the edited task
     ctx.patchState({
       tasks: state.tasks.map(task => {
         if (task.id === action.payload.id) {
-          task.title = action.payload.title;
+          return {
+            ...task,
+            title: action.payload.title
+          };
         }
         return task;
       })
     });
   }
 
+  // Remove a task from the state
   @Action(RemoveTask)
   remove(ctx: StateContext<TaskStateModel>, action: RemoveTask) {
     const state = ctx.getState();
+    // update the state with the task removed
     ctx.patchState({
       tasks: state.tasks.filter(task => task.id !== action.payload)
     });
   }
 
+  // Toggle the completed status of a task
   @Action(ToggleCompleted)
   toggleCompleted(ctx: StateContext<TaskStateModel>, action: ToggleCompleted) {
     const state = ctx.getState();
+    // update the state with the task toggled
     ctx.patchState({
       tasks: state.tasks.map(task => {
         if (task.id === action.payload) {
-          task.completed = !task.completed;
+          return {
+            ...task,
+            completed: !task.completed
+          }
         }
         return task;
       })
