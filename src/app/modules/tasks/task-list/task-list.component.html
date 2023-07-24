@@ -10,8 +10,9 @@
         <input type="text" class="line" #input 
           [class.completed]="task.completed" 
           [readonly]="task.completed"
-          [value]="task.title" 
-          (input)="editTask(task.id, input.value)" data-cy="task-value">
+          [value]="task.title"          
+          (blur)="editTask(task.id, input.value)" 
+          data-cy="task-value">
       </div>
       <div class="control ml-1">
         <button (click)="deleteTask(task.id)" data-cy="delete">X</button>

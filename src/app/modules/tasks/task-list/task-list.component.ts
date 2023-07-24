@@ -21,16 +21,14 @@ export class TaskListComponent implements OnInit {
     this.completedTasks$ = this.tasks$.pipe(
       map(tasks => tasks.filter(task => task.completed).length)
     );
-    console.log(this.store.snapshot());
-
   }
 
-  addTask(title: string): void {    
+  addTask(title: string): void {   
     const task: Task = {
       id: this.store.selectSnapshot(state => state.tasks.tasks.length) + 1,
       title: title,
       completed: false
-    };
+    };    
     this.store.dispatch(new AddTask(task));
     console.log('task added', task);
   }
