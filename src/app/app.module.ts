@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxsModule } from '@ngxs/store';
 
-import { TasksModule } from './modules/tasks/tasks.module';
+import { TasksModule } from './components/tasks/tasks.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { TaskState } from './modules/tasks/task.state';
+import { TaskState } from './components/tasks/task.state';
 
 
 @NgModule({
