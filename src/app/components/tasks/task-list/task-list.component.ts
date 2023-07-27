@@ -26,8 +26,11 @@ export class TaskListComponent implements OnInit {
   }
 
   editTask(task: TodoTask, value: string): void {
-    task.title = value;
-    this.store.dispatch(new EditTask(task));
+    const editedTask = {
+      ...task,
+      title: value
+    }
+    this.store.dispatch(new EditTask(editedTask));
   }
 
   deleteTask(id: number): void {
