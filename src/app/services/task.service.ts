@@ -21,7 +21,7 @@ export class TaskService {
   }
 
   // POST: /tasks
-  createTask(task: TodoTask) {
+  createTask(task: { title: string }) {
     return this.http.post<any>(this.API_URL, task);
   }
 

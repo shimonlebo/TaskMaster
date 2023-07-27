@@ -23,10 +23,8 @@ export class TaskFormComponent implements OnInit {
       console.log('Invalid Task');
       return;
     }    
-    const newTask: TodoTask = {
-      title: this.taskForm.value.title,
-      description: '',
-      isComplete: false
+    const newTask = {
+      title: this.taskForm.value.title
     }
     this.store.dispatch(new AddTask(newTask));
     this.taskForm.reset();
