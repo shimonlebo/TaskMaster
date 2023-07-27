@@ -15,7 +15,7 @@ export class GetTasks {
 
 export class AddTask {
   static readonly type = '[Task] Add';
-  constructor(public payload: TodoTask) { }
+  constructor(public payload: { title: string }) { }
 }
 
 export class RemoveTask {
@@ -69,15 +69,15 @@ export class TaskState {
   // Edit a task in the state
   @Action(EditTask)
   edit(ctx: StateContext<TaskStateModel>, action: EditTask) {
-    this.taskService.updateTask(action.payload).subscribe(task => {
+    this.taskService.updateTask(action.payload).subscribe(() => {
       const state = ctx.getState();
       // update the state with the task edited
       ctx.patchState({
         tasks: state.tasks.map(t => {
-          if (t.id === task.id) {
+          if (t.id === action.payload.id) {
             return {
               ...t,
-              ...task
+              ...action.payload
             }
           }
           return t;
