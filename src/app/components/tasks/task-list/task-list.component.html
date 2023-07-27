@@ -3,15 +3,15 @@
   <ng-container *ngFor="let task of tasks$ | async; trackBy: trackByFn">
     <div class="field has-addons mt-3" data-cy="task-field">
       <div class="control mr-1">
-        <input type="checkbox" class="checkbox" [checked]="task.completed" 
-          (change)="toggleCompleted(task.id)" data-cy="checkbox" />
+        <input type="checkbox" class="checkbox" [checked]="task.isComplete" 
+          (change)="toggleIsComplete(task.id)" data-cy="checkbox" />
       </div>
       <div class="control w-100">
         <input type="text" class="line" #input 
-          [class.completed]="task.completed" 
-          [readonly]="task.completed"
+          [class.isComplete]="task.isComplete" 
+          [readonly]="task.isComplete"
           [value]="task.title"          
-          (blur)="editTask(task.id, input.value)" 
+          (blur)="editTask(task, input.value)" 
           data-cy="task-value">
       </div>
       <div class="control ml-1">
@@ -20,6 +20,6 @@
     </div>
   </ng-container>
   <small *ngIf="(tasks$ | async)?.length">
-    Tasks completed: {{ (completedTasks$ | async) ?? 0 }}
+    Tasks isComplete: {{ (completedTasks$ | async) ?? 0 }}
   </small>
 </section>

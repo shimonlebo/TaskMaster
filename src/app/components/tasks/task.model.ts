@@ -1,11 +1,13 @@
 export class TodoTask {
-  id: number;
+  id?: number;
   title: string;
-  completed: boolean;
+  description?: string;
+  isComplete?: boolean;
 
-  constructor(id: number, title: string, completed: boolean = false) {
+  constructor(id: number, title: string, description: string, completed: boolean) {
     this.id = id;
     this.title = title;
-    this.completed = completed;
+    this.description = description;
+    this.isComplete = completed;
   }
 }
