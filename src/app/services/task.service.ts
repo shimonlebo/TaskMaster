@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TodoTask as Task } from '../components/tasks/task.model';
+import { TodoTask } from '../components/tasks/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class TaskService {
 
   // GET: /tasks
   getTasks() {
-    return this.http.get<Task[]>(this.API_URL);
+    return this.http.get<TodoTask[]>(this.API_URL);
   }
 
   // GET: /tasks/:id
@@ -21,13 +21,13 @@ export class TaskService {
   }
 
   // POST: /tasks
-  createTask(task: any) {
+  createTask(task: TodoTask) {
     return this.http.post<any>(this.API_URL, task);
   }
 
   // PUT: /tasks/:id
-  updateTask(task: any) {
-    return this.http.put<any>(`${this.API_URL}/${task.id}`, task);
+  updateTask(task: TodoTask) {
+    return this.http.put<any>(this.API_URL, task);
   }
 
   // DELETE: /tasks/:id
