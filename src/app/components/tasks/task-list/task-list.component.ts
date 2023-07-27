@@ -3,6 +3,7 @@ import { TodoTask as Task } from '../task.model';
 import { Select, Store } from '@ngxs/store';
 import { EditTask, RemoveTask, ToggleCompleted } from '../task.state';
 import { Observable, map } from 'rxjs';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -15,7 +16,7 @@ export class TaskListComponent implements OnInit {
 
   completedTasks$: Observable<number>;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.completedTasks$ = this.tasks$.pipe(

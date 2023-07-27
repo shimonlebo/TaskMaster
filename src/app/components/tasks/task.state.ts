@@ -1,16 +1,21 @@
-import { State, Action, StateContext } from '@ngxs/store';
-import { TodoTask as Task } from './task.model';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { TodoTask } from './task.model';
+import { TaskService } from 'src/app/services/task.service';
 import { Injectable } from '@angular/core';
 
 // define the shape of your state
 export interface TaskStateModel {
-  tasks: Task[];
+  tasks: TodoTask[];
 }
 
 // define the actions that can be performed on the state
+export class GetTasks {
+  static readonly type = '[Task] Get';
+}
+
 export class AddTask {
   static readonly type = '[Task] Add';
-  constructor(public payload: Task) { }
+  constructor(public payload: TodoTask) { }
 }
 
 export class RemoveTask {
@@ -37,41 +42,59 @@ export class ToggleCompleted {
 })
 @Injectable()
 export class TaskState {
-  // Add a task to the state
+  constructor(private taskService: TaskService) { }
+
+  @Selector()
+  static getTasks(state: TaskStateModel) {
+    return state.tasks;
+  }
+  
+  @Action(GetTasks)
+  get(ctx: StateContext<TaskStateModel>) {
+    return this.taskService.getTasks().subscribe(tasks => {
+      ctx.patchState({tasks});
+    });
+  }
+
   @Action(AddTask)
   add(ctx: StateContext<TaskStateModel>, action: AddTask) {
-    const state = ctx.getState();
-    // update the state with the new task
-    ctx.patchState({
-      tasks: [...state.tasks, action.payload]
+    this.taskService.createTask(action.payload).subscribe(task => {
+      const state = ctx.getState();
+      ctx.patchState({
+        tasks: [...state.tasks, task]
+      });
     });
   }
 
   // Edit a task in the state
   @Action(EditTask)
   edit(ctx: StateContext<TaskStateModel>, action: EditTask) {
-    const state = ctx.getState();
-    // update the state with the edited task
-    ctx.patchState({
-      tasks: state.tasks.map(task => {
-        if (task.id === action.payload.id) {
-          return {
-            ...task,
-            title: action.payload.title
-          };
-        }
-        return task;
-      })
+    this.taskService.updateTask(action.payload).subscribe(task => {
+      const state = ctx.getState();
+      // update the state with the task edited
+      ctx.patchState({
+        tasks: state.tasks.map(t => {
+          if (t.id === task.id) {
+            return {
+              ...t,
+              ...task
+            }
+          }
+          return t;
+        })
+      });
     });
   }
 
   // Remove a task from the state
   @Action(RemoveTask)
   remove(ctx: StateContext<TaskStateModel>, action: RemoveTask) {
-    const state = ctx.getState();
-    // update the state with the task removed
-    ctx.patchState({
-      tasks: state.tasks.filter(task => task.id !== action.payload)
+    this.taskService.deleteTask(action.payload).subscribe(() => {
+      const state = ctx.getState();
+      // update the state with the task removed
+      ctx.patchState({
+        tasks: state.tasks.filter(t => t.id !== action.payload)
+      });
     });
   }
 
@@ -79,17 +102,17 @@ export class TaskState {
   @Action(ToggleCompleted)
   toggleCompleted(ctx: StateContext<TaskStateModel>, action: ToggleCompleted) {
     const state = ctx.getState();
-    // update the state with the task toggled
-    ctx.patchState({
-      tasks: state.tasks.map(task => {
-        if (task.id === action.payload) {
-          return {
-            ...task,
-            completed: !task.completed
-          }
-        }
-        return task;
-      })
-    });
+    const taskToToggle = state.tasks.find(t => t.id === action.payload);
+
+    if (taskToToggle) {
+      const updatedTask = {...taskToToggle, completed: !taskToToggle.completed};
+      this.taskService.updateTask(updatedTask).subscribe(() => {
+        ctx.patchState({
+          tasks: state.tasks.map(t => {
+            return t.id === action.payload ? updatedTask : t;
+          })
+        });
+      });
+    }
   }
 }
