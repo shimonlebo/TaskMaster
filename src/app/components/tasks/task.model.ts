@@ -1,8 +1,8 @@
 export class TodoTask {
-  id?: number;
+  id: number;
   title: string;
   description?: string;
-  isComplete?: boolean;
+  isComplete: boolean;
 
   constructor(id: number, title: string, description: string, completed: boolean) {
     this.id = id;
