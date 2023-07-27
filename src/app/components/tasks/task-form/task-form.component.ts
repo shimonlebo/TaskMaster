@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { AddTask } from '../task.state';
+import { TodoTask } from '../task.model';
 
 @Component({
   selector: 'app-task-form',
@@ -20,23 +21,21 @@ export class TaskFormComponent implements OnInit {
   onSubmit(): void {
     if (this.taskForm.invalid) {
       console.log('Invalid Task');
-      return;      
+      return;
+    }    
+    const newTask: TodoTask = {
+      title: this.taskForm.value.title,
+      description: '',
+      isComplete: false
     }
-
-    this.addTask();
+    this.store.dispatch(new AddTask(newTask));
     this.taskForm.reset();
   }
-  
+
   private initializeForm(): void {
+    // TODO: Add description field
     this.taskForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.maxLength(100)])
     });
   }
-
-  private addTask(): void {
-    const id = this.store.selectSnapshot(state => state.tasks.tasks.length) + 1; 
-    const title = this.taskForm.value.title;    
-    this.store.dispatch(new AddTask({ id, title, completed: false }));
-  }
-
 }

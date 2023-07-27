@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoTask as Task } from '../task.model';
+import { TodoTask } from '../task.model';
 import { Select, Store } from '@ngxs/store';
 import { EditTask, GetTasks, RemoveTask, ToggleCompleted } from '../task.state';
 import { Observable, map } from 'rxjs';
@@ -10,8 +10,8 @@ import { Observable, map } from 'rxjs';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  @Select((state: {tasks: {tasks: Task[]}}) => state.tasks.tasks) 
-  tasks$: Observable<Task[]>;
+  @Select((state: { tasks: { tasks: TodoTask[] } }) => state.tasks.tasks)
+  tasks$: Observable<TodoTask[]>;
 
   completedTasks$: Observable<number>;
 
@@ -21,24 +21,25 @@ export class TaskListComponent implements OnInit {
     this.store.dispatch(new GetTasks());
 
     this.completedTasks$ = this.tasks$.pipe(
-      map(tasks => tasks.filter(task => task.completed).length)
+      map(tasks => tasks.filter(task => task.isComplete).length)
     );
   }
 
-  editTask(id: number, title: string): void {
-    this.store.dispatch(new EditTask({ id, title }));
+  editTask(task: TodoTask, value: string): void {
+    task.title = value;
+    this.store.dispatch(new EditTask(task));
   }
 
   deleteTask(id: number): void {
     this.store.dispatch(new RemoveTask(id));
   }
 
-  toggleCompleted(id: number): void {
-    this.store.dispatch(new ToggleCompleted(id));   
+  toggleIsComplete(id: number): void {
+    this.store.dispatch(new ToggleCompleted(id));
   }
-  
+
   // TrackBy function to improve performance
-  trackByFn(index: number, task: Task): number {
-    return task.id;
+  trackByFn(index: number, task: TodoTask): number {
+    return task.id!;
   }
 }

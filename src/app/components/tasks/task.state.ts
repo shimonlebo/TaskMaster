@@ -25,7 +25,7 @@ export class RemoveTask {
 
 export class EditTask {
   static readonly type = '[Task] Edit';
-  constructor(public payload: { id: number, title: string}) { }
+  constructor(public payload: TodoTask) { }
 }
 
 export class ToggleCompleted {
@@ -48,11 +48,11 @@ export class TaskState {
   static getTasks(state: TaskStateModel) {
     return state.tasks;
   }
-  
+
   @Action(GetTasks)
   get(ctx: StateContext<TaskStateModel>) {
     return this.taskService.getTasks().subscribe(tasks => {
-      ctx.patchState({tasks});
+      ctx.patchState({ tasks });
     });
   }
 
@@ -105,7 +105,7 @@ export class TaskState {
     const taskToToggle = state.tasks.find(t => t.id === action.payload);
 
     if (taskToToggle) {
-      const updatedTask = {...taskToToggle, completed: !taskToToggle.completed};
+      const updatedTask: TodoTask = { ...taskToToggle, isComplete: !taskToToggle.isComplete };
       this.taskService.updateTask(updatedTask).subscribe(() => {
         ctx.patchState({
           tasks: state.tasks.map(t => {
