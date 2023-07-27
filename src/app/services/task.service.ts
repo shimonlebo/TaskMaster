@@ -6,7 +6,7 @@ import { TodoTask as Task } from '../components/tasks/task.model';
   providedIn: 'root'
 })
 export class TaskService {
-  private readonly API_URL = 'http://localhost:5250/tasks';
+  private readonly API_URL = 'http://localhost:5250/api/tasks';
 
   constructor(private http: HttpClient) { }
 

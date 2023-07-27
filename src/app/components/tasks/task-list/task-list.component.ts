@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoTask as Task } from '../task.model';
 import { Select, Store } from '@ngxs/store';
-import { EditTask, RemoveTask, ToggleCompleted } from '../task.state';
+import { EditTask, GetTasks, RemoveTask, ToggleCompleted } from '../task.state';
 import { Observable, map } from 'rxjs';
-import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -11,14 +10,16 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  @Select((state: { tasks: { tasks: Task[]; }; }) => state.tasks.tasks) 
+  @Select((state: {tasks: {tasks: Task[]}}) => state.tasks.tasks) 
   tasks$: Observable<Task[]>;
 
   completedTasks$: Observable<number>;
 
-  constructor(private store: Store, private taskService: TaskService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new GetTasks());
+
     this.completedTasks$ = this.tasks$.pipe(
       map(tasks => tasks.filter(task => task.completed).length)
     );
