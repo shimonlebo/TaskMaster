@@ -25,7 +25,7 @@ export class TaskService {
     return this.http.post<any>(this.API_URL, task);
   }
 
-  // PUT: /tasks/:id
+  // PUT: /tasks
   updateTask(task: TodoTask) {
     return this.http.put<any>(this.API_URL, task);
   }
@@ -34,10 +34,4 @@ export class TaskService {
   deleteTask(id: number) {
     return this.http.delete<any>(`${this.API_URL}/${id}`);
   }
-
-  handleErrors(error: any) {
-    console.log('Error: ', error);
-    return error;
-  }
-
 }
