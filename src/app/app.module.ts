@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxsModule } from '@ngxs/store';
 
+import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
-import { TasksModule } from './components/tasks/tasks.module';
+import { TodosModule } from './components/todos/todos.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { TaskState } from './components/tasks/task.state';
-
+import { TodoState } from './components/todos/todo.state';
 
 @NgModule({
   // declarations are used to declare components, directives and pipes
@@ -21,10 +21,11 @@ import { TaskState } from './components/tasks/task.state';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxsModule.forRoot([TaskState], {
+    HttpClientModule,
+    NgxsModule.forRoot([TodoState], {
       developmentMode: !environment.production
     }),
-    TasksModule
+    TodosModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }

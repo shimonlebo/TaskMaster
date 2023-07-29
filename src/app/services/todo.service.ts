@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TodoTask } from '../components/tasks/task.model';
+import { Todo } from '../models/todo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class TodoService {
   private readonly API_URL = 'http://localhost:5250/api/tasks';
 
   constructor(private http: HttpClient) { }
 
   // GET: /tasks
-  getTasks() {
-    return this.http.get<TodoTask[]>(this.API_URL);
+  getTodos() {
+    return this.http.get<Todo[]>(this.API_URL);
   }
 
   // GET: /tasks/:id
-  getTaskById(id: number) {
+  getTodoById(id: number) {
     return this.http.get<any>(`${this.API_URL}/${id}`);
   }
 
   // POST: /tasks
-  createTask(task: { title: string }) {
-    return this.http.post<any>(this.API_URL, task);
+  createTodo(todo: { title: string }) {
+    return this.http.post<any>(this.API_URL, todo);
   }
 
   // PUT: /tasks
-  updateTask(task: TodoTask) {
-    return this.http.put<any>(this.API_URL, task);
+  updateTodo(todo: Todo) {
+    return this.http.put<any>(this.API_URL, todo);
   }
 
   // DELETE: /tasks/:id
-  deleteTask(id: number) {
+  deleteTodo(id: number) {
     return this.http.delete<any>(`${this.API_URL}/${id}`);
   }
 }

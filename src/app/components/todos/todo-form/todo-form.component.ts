@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { AddTask } from '../task.state';
-import { TodoTask } from '../task.model';
+import { AddTodo } from '../todo.state';
 
 @Component({
-  selector: 'app-task-form',
-  templateUrl: './task-form.component.html',
-  styleUrls: ['./task-form.component.scss']
+  selector: 'app-todo-form',
+  templateUrl: './todo-form.component.html',
+  styleUrls: ['./todo-form.component.css']
 })
-export class TaskFormComponent implements OnInit {
+export class TodoFormComponent implements OnInit {
   taskForm: FormGroup;
 
   constructor(private store: Store) { }
@@ -22,11 +21,11 @@ export class TaskFormComponent implements OnInit {
     if (this.taskForm.invalid) {
       console.log('Invalid Task');
       return;
-    }    
+    }
     const newTask = {
       title: this.taskForm.value.title
     }
-    this.store.dispatch(new AddTask(newTask));
+    this.store.dispatch(new AddTodo(newTask));
     this.taskForm.reset();
   }
 
