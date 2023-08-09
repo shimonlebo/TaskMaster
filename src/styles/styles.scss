@@ -1,4 +1,8 @@
-@import "bulma/bulma";
+@import "bulma/bulma", url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+
+.box * {
+  font-family: 'Kalam', cursive;
+}
 
 .line {
   width: 100%;

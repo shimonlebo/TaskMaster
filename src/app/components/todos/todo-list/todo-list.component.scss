@@ -1,6 +1,5 @@
-h1 {
-  font-size: large;
-  font-weight: bold;
+.box {
+  background: lightyellow;
 }
 
 .isComplete {
@@ -10,18 +9,4 @@ h1 {
 
 .checkbox {
   vertical-align: middle;
-}
-
-.box {
-  background: lightyellow;
-}
-
-.field {
-  position: relative;
-}
-
-.index {
-  position: absolute;
-  left: -14px;
-  display: none;
 }
