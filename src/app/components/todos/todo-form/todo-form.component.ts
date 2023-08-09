@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngxs/store';
-import { AddTodo } from '../todo.state';
+import { TodoStateService } from 'src/app/services/todo-state.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -11,7 +10,7 @@ import { AddTodo } from '../todo.state';
 export class TodoFormComponent implements OnInit {
   taskForm: FormGroup;
 
-  constructor(private store: Store) { }
+  constructor(private stateService: TodoStateService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -22,10 +21,7 @@ export class TodoFormComponent implements OnInit {
       console.log('Invalid Task');
       return;
     }
-    const newTask = {
-      title: this.taskForm.value.title
-    }
-    this.store.dispatch(new AddTodo(newTask));
+    this.stateService.addTodo(this.taskForm.value.title);
     this.taskForm.reset();
   }
 

@@ -1,9 +1,9 @@
 <section class="box mt-3">
-  <app-todo-form></app-todo-form>
-  <ng-container *ngFor="let todo of todos$ | async; trackBy: trackByFn">
+  <app-todo-form/>
+  <ng-container *ngFor="let todo of stateService.todos(); trackBy: trackByFn">
     <div class="field has-addons mt-3" data-cy="task-field">
       <div class="control mr-1">
-        <input type="checkbox" class="checkbox" [checked]="todo.isComplete" (change)="toggleIsComplete(todo.id)"
+        <input type="checkbox" class="checkbox" [checked]="todo.isComplete" (change)="stateService.toggleIsComplete(todo.id)"
           data-cy="checkbox" />
       </div>
       <div class="control w-100">
@@ -11,11 +11,11 @@
           [value]="todo.title" (blur)="editTodo(todo, input.value)" data-cy="task-value">
       </div>
       <div class="control ml-1">
-        <button (click)="deleteTodo(todo.id)" data-cy="delete">X</button>
+        <button (click)="stateService.deleteTodo(todo.id)" data-cy="delete">X</button>
       </div>
     </div>
   </ng-container>
-  <small *ngIf="(todos$ | async)?.length">
-    Tasks Completed: {{ (completedTodos$ | async) ?? 0 }}
+  <small>
+    Tasks Completed: {{ stateService.completedTodos() }}
   </small>
 </section>
