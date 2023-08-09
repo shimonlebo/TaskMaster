@@ -11,11 +11,11 @@ export class TodoListComponent implements OnInit {
 
   constructor(public stateService: TodoStateService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.stateService.loadTodos();
   }
 
-  editTodo(todo: Todo, value: string): void {
+  edit(todo: Todo, value: string) {
     const editedTodo = {
       ...todo,
       title: value
@@ -23,8 +23,16 @@ export class TodoListComponent implements OnInit {
     this.stateService.updateTodo(editedTodo);
   }
 
+  delete(id: number) {
+    this.stateService.deleteTodo(id);
+  }
+
+  toggleCompleted(id: number) {
+    this.stateService.toggleIsComplete(id);
+  }
+
   // TrackBy function to improve performance
-  trackByFn(index: number, todo: Todo): number {
+  trackByFn(index: number, todo: Todo) {
     return todo.id!;
   }
 }
