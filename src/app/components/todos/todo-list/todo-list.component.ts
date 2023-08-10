@@ -8,8 +8,10 @@ import { TodoStateService } from 'src/app/services/todo-state.service';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {  
+  todos = this.stateService.todos;
+  completedTodos = this.stateService.completedTodos;
 
-  constructor(public stateService: TodoStateService) { }
+  constructor(private stateService: TodoStateService) { }
 
   ngOnInit() {
     this.stateService.loadTodos();

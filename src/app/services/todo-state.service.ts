@@ -34,7 +34,7 @@ export class TodoStateService {
     this.apiService.createTodo(newTodo)
       .subscribe({
           next: (todo) => {
-            this.todos.update(todos => todos.concat([todo]));
+            this.todos.mutate(todos => todos.push(todo));
           },
           error: error => {
             this.error.set(error);
@@ -47,7 +47,7 @@ export class TodoStateService {
     this.apiService.updateTodo(todo)
       .subscribe({
         next: () => {
-          this.todos.update(todos => todos.map(t => t.id === todo.id ? t = todo : t));
+          this.todos.update(todos => todos.map(t => t.id === todo.id ? todo : t));
         },
         error: error => {
           this.error.set(error);

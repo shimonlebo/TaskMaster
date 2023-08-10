@@ -1,7 +1,7 @@
 <section class="box mt-3">
   <app-todo-form/>
-  <ng-container *ngFor="let todo of stateService.todos(); trackBy: trackByFn">
-    <div class="field has-addons mt-3" data-cy="task-field">
+  <ng-container *ngIf="todos(); else noItems">
+    <div *ngFor="let todo of todos(); trackBy: trackByFn" class="field has-addons mt-3" data-cy="task-field">
       <div class="control mr-1">
         <input type="checkbox" class="checkbox" [checked]="todo.isComplete" (change)="toggleCompleted(todo.id)"
           data-cy="checkbox" />
@@ -14,8 +14,11 @@
         <button (click)="delete(todo.id)" data-cy="delete">X</button>
       </div>
     </div>
+    <small>
+      Tasks Completed: {{ completedTodos() }}
+    </small>
   </ng-container>
-  <small>
-    Tasks Completed: {{ stateService.completedTodos() }}
-  </small>
+  <ng-template #noItems>
+    <p class="has-text-centered py-3">No tasks yet!</p>
+  </ng-template>
 </section>
